@@ -1,0 +1,16 @@
+---
+applications:
+  .:
+    name: farealert
+    framework:
+      name: standalone
+      info:
+        mem: 64M
+        description: Standalone Application
+        exec: 
+    runtime: ruby193
+    command: ruby schedule.rb
+    infra: ap-aws
+    url: 
+    mem: 128M
+    instances: 1
