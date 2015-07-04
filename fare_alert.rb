@@ -40,8 +40,8 @@ class FareAlert
 
         data['results']['collection1'].each_with_index do |fare, index|
           unless fare['maskapai'].empty?
-            yield "#{index+1}. #{fare['maskapai']} #{fare['waktu'].join('-')} #{fare['harga'].join}"    
-          end 
+            yield "#{index+1}. #{fare['maskapai']} #{fare['waktu'].join('-')} #{fare['harga'].join}"
+          end
         end
       elsif response.timed_out?
         yield 'Response timed out'
@@ -56,12 +56,14 @@ class FareAlert
   end
 
   def self.perform
-    %w(03-08-2014 04-08-2014 05-08-2014).each do |departure|
-      url = "http://www.traveloka.com/fullsearch?ap=SUB.JKTA&dt=#{departure}.NA&ps=1.0.0"
-      title   = "#{departure} SUB-CGK Alert"
+    %w(14-07-2015 15-07-2015 16-07-2015).each do |departure|
+      url = "http://www.traveloka.com/fullsearch?ap=JKTA.SUB&dt=#{departure}.NA&ps=1.0.0"
+      title   = "#{departure} CGK-SUB Alert #{DateTime.now.strftime '%d-%m-%Y %H:%M:%S'}"
 
       content = []
       get_kimono(departure) { |price| content << price }
+
+      p [title, content]
 
       mail(title, content, url)
       push_over(title, content, url)
