@@ -62,10 +62,6 @@ class FareAlert
 
       content = []
       get_kimono(departure) { |price| content << price }
-
-      p [title, content]
-
-      mail(title, content, url)
       push_over(title, content, url)
     end
   end
